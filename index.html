@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="description" content="Un pequeño universo interactivo de flores amarillas para el 21 de noviembre." />
+  <title>21 de noviembre · Flores amarillas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Para añadir una pista libre de derechos, asigna la ruta en data-audio-src. -->
+  <div class="app-shell" id="appShell" data-audio-src="">
+    <div class="ambient" aria-hidden="true">
+      <div class="ambient-halo"></div>
+      <div class="starfield" id="starfield"></div>
+      <div class="ambient-vignette"></div>
+    </div>
+
+    <div class="particle-burst" id="particleBurst" aria-hidden="true"></div>
+
+    <main class="experience" aria-label="Experiencia de flores amarillas">
+      <section class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
+        <div class="welcome-date" aria-hidden="true">
+          <span></span>
+          <p>21 · 11</p>
+          <span></span>
+        </div>
+
+        <div class="welcome-flower-wrap">
+          <span class="flower-halo halo-one" aria-hidden="true"></span>
+          <span class="flower-halo halo-two" aria-hidden="true"></span>
+          <span class="welcome-spark spark-one" aria-hidden="true"></span>
+          <span class="welcome-spark spark-two" aria-hidden="true"></span>
+          <span class="welcome-spark spark-three" aria-hidden="true"></span>
+
+          <button class="welcome-flower" id="startFlower" type="button" aria-describedby="welcomeInstruction" aria-label="Abrir la sorpresa de flores amarillas">
+            <span class="flower-orbit orbit-left" aria-hidden="true"></span>
+            <span class="flower-orbit orbit-right" aria-hidden="true"></span>
+            <img src="assets/sunflower.svg" alt="" draggable="false" />
+            <span class="flower-center-glint" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="welcome-copy">
+          <p class="welcome-kicker">Una pequeña sorpresa para ti</p>
+          <h1 id="welcomeTitle">Un universo hecho de luz</h1>
+          <p class="tap-prompt" id="welcomeInstruction"><span aria-hidden="true">✦</span> Toca la flor para comenzar <span aria-hidden="true">✦</span></p>
+        </div>
+      </section>
+
+      <section class="universe" id="universe" aria-hidden="true" aria-labelledby="sceneTitle">
+        <header class="scene-header">
+          <div>
+            <p class="scene-date">21 de noviembre</p>
+            <h2 id="sceneTitle">Flores amarillas</h2>
+          </div>
+          <button class="sound-toggle" id="soundToggle" type="button" disabled aria-label="Activar sonido" aria-pressed="false">
+            <span class="sound-icon" aria-hidden="true">🔇</span>
+            <span class="sr-only" id="soundText">Activar sonido</span>
+          </button>
+        </header>
+
+        <div class="orbit-stage" id="orbitStage">
+          <div class="stage-glow" aria-hidden="true"></div>
+          <div class="stage-dust dust-a" aria-hidden="true"></div>
+          <div class="stage-dust dust-b" aria-hidden="true"></div>
+
+          <div class="phrase-cloud" aria-hidden="true">
+            <p class="scene-phrase phrase-one">Para ti</p>
+            <p class="scene-phrase phrase-two">Siempre brillas</p>
+            <p class="scene-phrase phrase-three">Que nunca te<br />falten flores</p>
+            <p class="scene-phrase phrase-four">Un pequeño detalle</p>
+            <p class="scene-phrase phrase-five">Sonríe</p>
+          </div>
+
+          <div class="ring-anchor" id="ringAnchor" aria-hidden="true">
+            <div class="ring-rotation">
+              <div class="ring-plane">
+                <span class="ring-glint glint-a"></span>
+                <span class="ring-glint glint-b"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="orbit-nodes" id="orbitNodes" aria-label="Detalles interactivos alrededor de las flores">
+            <button class="orbit-node node-sunflower" type="button" data-angle="8" data-radius="1.08" data-message="Esta flor es para recordarte lo especial que eres." aria-label="Abrir mensaje de un girasol">
+              <span class="node-visual"><img src="assets/sunflower.svg" alt="" draggable="false" /></span>
+              <span class="node-caption">Una flor</span>
+            </button>
+
+            <button class="orbit-node node-bouquet" type="button" data-angle="55" data-radius="1" data-message="Que nunca te falten flores, luz y motivos para sonreír." aria-label="Abrir mensaje de un ramo">
+              <span class="node-visual"><img src="assets/bouquet.svg" alt="" draggable="false" /></span>
+              <span class="node-caption">Para celebrar</span>
+            </button>
+
+            <button class="orbit-node node-heart" type="button" data-angle="101" data-radius="1.16" data-message="Tu luz hace bonito el día, incluso en las cosas pequeñas." aria-label="Abrir mensaje de un corazón">
+              <span class="node-visual heart-visual"><span aria-hidden="true">♥</span></span>
+              <span class="node-caption">Con cariño</span>
+            </button>
+
+            <button class="orbit-node node-butterfly" type="button" data-angle="145" data-radius=".96" data-message="Hay detalles pequeños que vuelven mágico un día completo." aria-label="Abrir mensaje de una mariposa">
+              <span class="node-visual"><img src="assets/butterfly.svg" alt="" draggable="false" /></span>
+              <span class="node-caption">Ligero como luz</span>
+            </button>
+
+            <button class="orbit-node node-letter" type="button" data-angle="188" data-radius="1.1" data-message="Una carta diminuta para decirte: gracias por existir." aria-label="Abrir mensaje de una carta">
+              <span class="node-visual letter-visual" aria-hidden="true"><span class="letter-fold"></span><span class="letter-seal">✦</span></span>
+              <span class="node-caption">Una carta</span>
+            </button>
+
+            <button class="orbit-node node-star" type="button" data-angle="230" data-radius=".92" data-message="Siempre brillas, incluso cuando no lo notas." aria-label="Abrir mensaje de una estrella">
+              <span class="node-visual star-visual" aria-hidden="true">✦</span>
+              <span class="node-caption">Tu brillo</span>
+            </button>
+
+            <button class="orbit-node node-petals" type="button" data-angle="276" data-radius="1.11" data-message="Cada pétalo lleva un deseo bonito para ti." aria-label="Abrir mensaje de pétalos">
+              <span class="node-visual"><img src="assets/petals.svg" alt="" draggable="false" /></span>
+              <span class="node-caption">Deseos bonitos</span>
+            </button>
+
+            <button class="orbit-node node-little-bloom" type="button" data-angle="320" data-radius=".94" data-message="Flores amarillas para ti, hoy y siempre." aria-label="Abrir mensaje de una pequeña flor">
+              <span class="node-visual"><img src="assets/sunflower.svg" alt="" draggable="false" /></span>
+              <span class="node-caption">Hoy y siempre</span>
+            </button>
+          </div>
+
+          <button class="core-flower" id="coreFlower" type="button" data-message="El 21 de noviembre guarda una luz especial: esta es para ti." aria-label="Abrir el mensaje central">
+            <span class="core-radiance" aria-hidden="true"></span>
+            <img src="assets/sunflower.svg" alt="" draggable="false" />
+            <span class="core-label">21 · 11</span>
+          </button>
+        </div>
+
+        <p class="scene-hint"><span aria-hidden="true">✦</span> Toca una luz para abrir un detalle <span aria-hidden="true">✦</span></p>
+      </section>
+    </main>
+
+    <div class="message-card" id="messageCard" role="status" aria-live="polite" aria-atomic="true">
+      <span class="message-star" aria-hidden="true">✦</span>
+      <p id="messageText"></p>
+    </div>
+
+    <audio id="ambientAudio" loop preload="none"></audio>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

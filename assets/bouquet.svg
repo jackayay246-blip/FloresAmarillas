@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 210" role="img" aria-label="Ramo de flores amarillas">
+  <defs>
+    <linearGradient id="wrap" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff2b2"/><stop offset="1" stop-color="#d89f2b"/></linearGradient>
+    <radialGradient id="flower" cx="35%" cy="25%"><stop stop-color="#fff7c1"/><stop offset=".52" stop-color="#ffd84d"/><stop offset="1" stop-color="#edaa16"/></radialGradient>
+    <filter id="bouquet-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <g id="bloom"><g fill="url(#flower)" stroke="#c77b16" stroke-width="1.2"><ellipse cx="0" cy="-12" rx="5" ry="12"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(45)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(90)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(135)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(180)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(225)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(270)"/><ellipse cx="0" cy="-12" rx="5" ry="12" transform="rotate(315)"/></g><circle r="7" fill="#663b18"/><circle r="3.5" fill="#9c6421"/></g>
+  </defs>
+  <g filter="url(#bouquet-glow)">
+    <path d="M93 184C80 146 64 95 43 50M95 184C91 143 94 86 91 38M97 184c13-42 39-95 55-133M98 184c-6-38-26-83-42-106M99 184c9-28 19-65 31-91" fill="none" stroke="#416a32" stroke-width="5" stroke-linecap="round"/>
+    <g fill="#608c3e" stroke="#365d2b" stroke-width="1"><path d="M68 105c-19-3-27-16-28-28 19 2 27 14 28 28Z"/><path d="M113 108c20-3 29-17 30-29-20 2-29 15-30 29Z"/><path d="M81 134c-18 2-30-7-35-17 18-4 31 4 35 17Z"/><path d="M110 142c17 3 30-5 37-15-18-5-31 2-37 15Z"/></g>
+    <g><use href="#bloom" transform="translate(43 47) scale(1.18)"/><use href="#bloom" transform="translate(91 35) scale(1.35)"/><use href="#bloom" transform="translate(151 49) scale(1.12)"/><use href="#bloom" transform="translate(56 76) scale(.96)"/><use href="#bloom" transform="translate(125 76) scale(1.04)"/></g>
+    <path d="M55 133 136 133 113 198 78 198Z" fill="url(#wrap)" stroke="#bd7a21" stroke-width="2"/>
+    <path d="M57 136 95 169 134 136" fill="none" stroke="#f6c945" stroke-width="2" opacity=".8"/>
+    <path d="M74 171h42" stroke="#a76921" stroke-width="3" stroke-linecap="round"/>
+    <path d="M91 160c5 8 10 8 15 0" fill="none" stroke="#f7df84" stroke-width="2"/>
+  </g>
+</svg>

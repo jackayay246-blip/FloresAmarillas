@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 150" role="img" aria-label="Mariposa amarilla">
+  <defs>
+    <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7bd"/><stop offset=".48" stop-color="#ffd84d"/><stop offset="1" stop-color="#e69c18"/></linearGradient>
+    <filter id="butterfly-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g filter="url(#butterfly-glow)" stroke="#a56418" stroke-width="2" stroke-linejoin="round">
+    <path d="M86 76C61 14 18 21 21 58c2 24 25 32 59 23-28 12-35 37-19 52 20 18 40-13 29-52Z" fill="url(#wing)"/>
+    <path d="M94 76c25-62 68-55 65-18-2 24-25 32-59 23 28 12 35 37 19 52-20 18-40-13-29-52Z" fill="url(#wing)"/>
+    <path d="M90 70c-2-23 2-37 0-49M93 70c5-23 12-35 21-45" fill="none" stroke="#523418" stroke-linecap="round"/>
+    <path d="M85 66c0 25 1 42 8 52 8-10 9-27 8-52-5-8-11-8-16 0Z" fill="#4a2d17"/>
+    <path d="M48 54c14-10 26-5 30 8M137 54c-14-10-26-5-30 8" fill="none" stroke="#fff3a8" stroke-width="3" opacity=".75"/>
+  </g>
+</svg>
