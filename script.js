@@ -29,6 +29,56 @@
   let messageTimer = null;
   let resizeTimer = null;
 
+  const camera = { yaw: 0, pitch: 0 };
+  let drag = null;
+  let suppressClickUntil = 0;
+  const clampTilt = value => Math.max(-0.85, Math.min(0.85, value));
+
+  orbitStage.setAttribute('tabindex', '0');
+  orbitStage.setAttribute('aria-label', 'Galaxia interactiva. Arrastra o usa las flechas para girar en 3D.');
+  orbitStage.addEventListener('pointerdown', event => {
+    if (!sceneActive || !event.isPrimary || event.button !== 0) return;
+    drag = { id: event.pointerId, x: event.clientX, y: event.clientY, yaw: camera.yaw, pitch: camera.pitch, moved: false };
+    orbitFrozenUntil = Infinity;
+  });
+  orbitStage.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+    if (Math.hypot(dx, dy) > 7) {
+      drag.moved = true;
+      orbitStage.setPointerCapture(event.pointerId);
+      orbitStage.classList.add('is-dragging');
+    }
+    if (!drag.moved) return;
+    camera.yaw = clampTilt(drag.yaw + dx * 0.004);
+    camera.pitch = clampTilt(drag.pitch - dy * 0.004);
+    renderOrbit(performance.now());
+  });
+  function endDrag(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    if (drag.moved) suppressClickUntil = performance.now() + 350;
+    if (orbitStage.hasPointerCapture(event.pointerId)) orbitStage.releasePointerCapture(event.pointerId);
+    drag = null;
+    orbitStage.classList.remove('is-dragging');
+    orbitFrozenUntil = performance.now() + 700;
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  orbitStage.addEventListener('click', event => {
+    if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
+  orbitStage.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home'].includes(event.key)) return;
+    event.preventDefault();
+    if (event.key === 'Home') { camera.yaw = 0; camera.pitch = 0; }
+    else {
+      camera.yaw = clampTilt(camera.yaw + (event.key === 'ArrowRight' ? 0.1 : event.key === 'ArrowLeft' ? -0.1 : 0));
+      camera.pitch = clampTilt(camera.pitch + (event.key === 'ArrowDown' ? 0.1 : event.key === 'ArrowUp' ? -0.1 : 0));
+    }
+    renderOrbit(performance.now());
+  });
+  document.querySelector('.scene-hint').textContent = 'Arrastra para girar en 3D · Toca para descubrir';
+
   const parallax = {
     targetX: 0,
     targetY: 0,
@@ -42,7 +92,7 @@
 
   function createAmbientParticles() {
     const isSmallScreen = window.innerWidth < 600;
-    const total = isSmallScreen ? 38 : 58;
+    const total = isSmallScreen ? 105 : 165;
     const fragment = document.createDocumentFragment();
 
     for (let index = 0; index < total; index += 1) {
@@ -116,18 +166,28 @@
     if (!sceneActive || !orbitStage.clientWidth) return;
 
     const stageBounds = orbitStage.getBoundingClientRect();
-    const baseRadius = Math.min(stageBounds.width, stageBounds.height) * 0.34;
-    const orbitX = baseRadius;
-    const orbitY = baseRadius * 0.46;
+    const orbitX = Math.max(40, stageBounds.width / 2 - 54);
+    const orbitY = Math.max(45, stageBounds.height / 2 - 80);
     const interactionActive = now < orbitFrozenUntil;
 
     orbitNodes.forEach((node) => {
       const startAngle = Number(node.dataset.angle || 0);
       const distance = Number(node.dataset.radius || 1);
       const radians = ((startAngle + orbitAngle) * Math.PI) / 180;
-      const depth = (Math.sin(radians) + 1) / 2;
-      const x = Math.cos(radians) * orbitX * distance + parallax.currentX * (0.35 + depth * 0.35);
-      const y = Math.sin(radians) * orbitY * distance + parallax.currentY * (0.28 + depth * 0.32);
+      // Rotate a shallow 3D constellation, then project it onto the screen.
+      const px = Math.cos(radians) * distance * 0.84;
+      const py = Math.sin(radians) * distance * 0.84;
+      const pz = Math.sin(radians * 2) * 0.28;
+      const cy = Math.cos(camera.yaw), sy = Math.sin(camera.yaw);
+      const cx = Math.cos(camera.pitch), sx = Math.sin(camera.pitch);
+      const rx = px * cy + pz * sy;
+      const rz = -px * sy + pz * cy;
+      const ry = py * cx - rz * sx;
+      const z = py * sx + rz * cx;
+      const perspective = 1 / (1 - z * 0.16);
+      const depth = Math.max(0, Math.min(1, (z + 1) / 2));
+      const x = rx * orbitX * perspective + parallax.currentX * 0.4;
+      const y = ry * orbitY * perspective + parallax.currentY * 0.4;
       const selected = interactionActive && activeNode === node;
       const scale = (0.72 + depth * 0.4) * (selected ? 1.2 : 1);
       const opacity = 0.43 + depth * 0.57;
@@ -139,6 +199,8 @@
       node.style.setProperty("--node-blur", `${blur.toFixed(2)}px`);
     });
 
+    ringAnchor.style.setProperty('--camera-x', `${camera.pitch * 35}deg`);
+    ringAnchor.style.setProperty('--camera-y', `${camera.yaw * 35}deg`);
     if (!interactionActive) activeNode = null;
 
     ringAnchor.style.setProperty("--ring-x", `${(parallax.currentX * 0.55).toFixed(2)}px`);

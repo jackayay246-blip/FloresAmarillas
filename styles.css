@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+/* Galaxy interaction: scoped overrides keep the original welcome intact. */
+.welcome-screen[hidden] { display: none !important; }
+#orbitStage { touch-action: none; cursor: grab; user-select: none; }
+#orbitStage.is-dragging { cursor: grabbing; }
+#orbitStage:focus-visible { outline: 1px solid #f6c945; outline-offset: 3px; border-radius: 24px; }
+#orbitStage .orbit-node { min-width: 52px; min-height: 52px; }
+#orbitStage .phrase-five { top: 94%; left: 45%; }
+#ringAnchor { transform: translate3d(var(--ring-x, 0px), var(--ring-y, 0px), 0) rotateX(var(--camera-x, 0deg)) rotateY(var(--camera-y, 0deg)); }
+#starfield .ambient-particle { animation-name: galaxy-twinkle; box-shadow: 0 0 4px currentColor; }
+#starfield .is-spark { box-shadow: 0 0 5px #f6c945, 0 0 10px #ffb80066; }
+@keyframes galaxy-twinkle {
+  0%, 100% { opacity: .16; }
+  30% { opacity: var(--particle-opacity); }
+  52% { opacity: .28; }
+  76% { opacity: .9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #starfield .ambient-particle { opacity: .55; }
+}
+
+
 :root {
   --ink: #050505;
   --ink-soft: #0d0b09;
